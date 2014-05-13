@@ -1,0 +1,14 @@
+<h1>Esther's Bookstore</h1>
+
+<hr>
+
+<% Book.read.each do |book| %>
+  <% book.update(:averating => Review.where("book_id" => book["id"]).average("stars")) %>
+<% end %>
+
+
+<% pick = Book.find_by("averating" => Book.maximum("averating")) %>
+
+<h2>Editor's Pick: <%= link_to pick["title"], "/books/#{pick["id"]}" %></h2>
+
+<p><%= link_to "Click here to see the list of all available books", "/books" %></p>
